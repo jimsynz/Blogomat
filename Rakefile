@@ -3,4 +3,19 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Dumpling::Application.load_tasks
+Baseline::Application.load_tasks
+
+namespace :spec do
+  task :javascript do
+    `bundle exec guard-jasmine`
+  end
+end
+
+namespace :ci do
+  task prepare: ['db:migrate', 'db:test:prepare']
+  task suite: ['spec', 'spec:javascript', 'cucumber', 'clean']
+  task clean: ['assets:clean', 'tmp:clear']
+end
+
+desc "Run the entire test-suite - used for CI"
+task suite: ['ci:prepare', 'ci:suite', 'ci:clean']

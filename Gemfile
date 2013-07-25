@@ -17,22 +17,24 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'ember-rails'
 gem 'epf-rails'
-gem 'asset_sync'
+gem 'asset_sync', github: 'jamesotron/asset_sync'
 gem 'hamlbars'
 gem 'zurb-foundation'
 
 # Monitoring
 gem 'newrelic_rpm', '~> 3.6.0'
-#gem 'newrelic-redis'
+gem 'newrelic-redis'
 #gem 'newrelic-carrierwave', github: 'tehprofessor/newrelic-carrierwave'
 gem 'newrelic_postgres_plugin'
 
 # Test
 gem 'rspec-rails'
-gem 'cucumber-rails'
-gem 'jasmine-rails'
+gem 'cucumber-rails', require: false
+gem 'jasminerice', path: '/Users/jnh/Dev/forks/jasminerice'
 gem 'mail_safe'
 gem 'fabrication'
+gem 'database_cleaner'
+gem 'poltergeist'
 
 # Dev tools
 gem 'guard'
@@ -40,7 +42,7 @@ gem 'guard-bundler'
 gem 'guard-rails'
 gem 'guard-rspec'
 gem 'guard-cucumber'
-gem 'guard-rake'
+gem 'guard-jasmine'
 gem 'guard-sidekiq'
 gem 'rb-fsevent', '~> 0.9.1'
 gem 'terminal-notifier-guard'

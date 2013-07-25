@@ -1,1 +1,1 @@
-Dumpling::Application.config.secret_key_base = ENV['SECRET_TOKEN']
+Baseline::Application.config.secret_key_base = ENV['SECRET_TOKEN']

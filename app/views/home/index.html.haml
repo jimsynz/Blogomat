@@ -1,2 +1,14 @@
-%noscript
-  Sorry. Nothing to see here.
+%h1 Baseline
+
+%p
+  This build of baseline includes:
+
+  %table
+    %tr
+      %th Gem
+      %th Version
+
+    - Bundler.definition.specs.to_hash.sort.each do |name,spec|
+      %tr
+        %td= name
+        %td= spec.last.version

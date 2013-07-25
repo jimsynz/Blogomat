@@ -1,4 +1,4 @@
-Dumpling::Application.configure do
+Baseline::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -13,7 +13,7 @@ Dumpling::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_assets  = false
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
@@ -34,5 +34,5 @@ Dumpling::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.ember.variant = :production
+  config.ember.variant = :development
 end

@@ -1,5 +1,3 @@
-Dumpling::Application.routes.draw do
-  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
-
+Baseline::Application.routes.draw do
   root to: 'home#index'
 end

@@ -16,3 +16,4 @@
 /tmp
 /.env
 /spec/tmp/
+/public/assets/*

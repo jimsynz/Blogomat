@@ -8,10 +8,11 @@ guard :rspec, all_after_pass: false, all_on_start: false do
   watch(%r{^spec/.+_spec\.rb$})
 end
 
-guard :rake, task: 'spec:javascript' do
-  watch(%r{spec/javascripts/.+Spec.coffee$})
-  watch(%r{spec/javascripts/support/.*$})
-  watch(%r{app/assets/javascripts/.*\.js(\.coffee)?$})
+guard :jasmine, server_env: :test, port: 8888 do
+  watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$}) { 'spec/javascripts' }
+  watch(%r{spec/javascripts/.+_spec\.(js\.coffee|js|coffee)$})
+  watch(%r{app/assets/javascripts/(.+?)\.(js\.coffee|js|coffee)(?:\.\w+)*$}) { |m| "spec/javascripts/#{ m[1] }_spec.#{ m[2] }" }
+  watch(%r{js/(.+?)\.(js\.coffee|js|coffee)(?:\.\w+)*$}) { |m| "spec/javascripts/#{ m[1] }_spec.#{ m[2] }" }
 end
 
 guard 'cucumber', all_after_pass: false, all_on_start: false do

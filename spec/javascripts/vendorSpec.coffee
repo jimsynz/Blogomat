@@ -1,5 +1,3 @@
-#= require vendor
-
 describe 'jQuery', ->
   it 'is the expected version', ->
     expect(jQuery.fn.jquery).toEqual('1.10.2')
