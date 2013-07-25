@@ -30,7 +30,7 @@ gem 'newrelic_postgres_plugin'
 # Test
 gem 'rspec-rails'
 gem 'cucumber-rails', require: false
-gem 'jasminerice', path: '/Users/jnh/Dev/forks/jasminerice'
+gem 'jasminerice', github: 'jamesotron/jasminerice'
 gem 'mail_safe'
 gem 'fabrication'
 gem 'database_cleaner'
