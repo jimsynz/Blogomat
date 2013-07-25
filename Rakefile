@@ -30,7 +30,8 @@ namespace :baseline do
     app_name = ENV['APP_NAME'].camelize
     raise "Please set APP_NAME='YourAppName' on the command line" unless app_name
     puts "Renaming Baseline => #{app_name}"
-    Dir['{config,spec}/**/*.rb'].each do |path|
+    dirs = Dir['{config,spec}/**/*.rb'] + %w[Rakefile]
+    dirs.each do |path|
       File.open(path, 'r+') do |file|
         baseline_source = file.read
         new_source      = baseline_source.gsub(/Baseline/, app_name)
