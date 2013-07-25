@@ -24,7 +24,7 @@ Merge Baseline's master branch to your master:
 
 Change the app name to your app:
 
-    $ rake baseline:rename APP_NAME=operation_pristine_dumpling
+    $ bundle exec rake baseline:rename APP_NAME=operation_pristine_dumpling
     Renaming Baseline => OperationPristineDumpling
     modified config/application.rb
     modified config/environment.rb
@@ -49,4 +49,4 @@ Any time there's updates to Baseline that you'd like to include in your app:
 You should be able to do everything by just running `bundle exec guard` which
 will start the appropriate test runners and trigger them upon change.
 
-You can also run the entire suite by running `rake suite`.
+You can also run the entire suite by running `bundle exec rake suite`.
