@@ -1,5 +1,7 @@
 # Baseline
 
+![Codeship build status](https://www.codeship.io/projects/4b5ecae0-951d-0130-0d7e-0e9cd879eb4e/status)
+
 Baseline is an empty Rails + Ember app ready for BDD.
 
 # Testing
