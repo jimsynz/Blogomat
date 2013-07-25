@@ -6,8 +6,9 @@ GIT
       activemodel
       fog
 
-PATH
-  remote: /Users/jnh/Dev/forks/jasminerice
+GIT
+  remote: git://github.com/jamesotron/jasminerice.git
+  revision: d93a3b2ed8f9b74249e2f19d179b5b1f1963dfc3
   specs:
     jasminerice (0.1.0)
       coffee-rails
