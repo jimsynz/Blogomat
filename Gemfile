@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 gem 'sqlite3', group: :development
+gem 'rails_12factor', group: :production
 gem 'pg'
 gem 'sidekiq'
 gem 'thin'
