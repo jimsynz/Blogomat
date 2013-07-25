@@ -19,3 +19,8 @@ end
 
 desc "Run the entire test-suite - used for CI"
 task suite: ['ci:prepare', 'ci:suite', 'ci:clean']
+
+desc "Notify New Relic RPM about the deploy"
+task :deploy_notify do
+  `RAILS_ENV=production bundle exec newrelic deployments -u codeship -r \`git rev-parse HEAD\``
+end
