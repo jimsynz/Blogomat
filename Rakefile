@@ -24,3 +24,22 @@ desc "Notify New Relic RPM about the deploy"
 task :deploy_notify do
   `RAILS_ENV=production bundle exec newrelic deployments -u codeship -r \`git rev-parse HEAD\``
 end
+
+namespace :baseline do
+  task rename: :environment do
+    app_name = ENV['APP_NAME'].camelize
+    raise "Please set APP_NAME='YourAppName' on the command line" unless app_name
+    puts "Renaming Baseline => #{app_name}"
+    Dir['{config,spec}/**/*.rb'].each do |path|
+      File.open(path, 'r+') do |file|
+        baseline_source = file.read
+        new_source      = baseline_source.gsub(/Baseline/, app_name)
+        if new_source != baseline_source
+          puts "modified #{path}"
+          file.rewind
+          file.write(new_source)
+        end
+      end
+    end
+  end
+end
