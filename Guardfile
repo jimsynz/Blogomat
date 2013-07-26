@@ -30,3 +30,8 @@ guard 'sidekiq', environment: 'development' do
   watch(%r{^app/(.+)\.rb$})
   watch(%r{^(config|lib)/.*})
 end
+
+guard 'migrate' do
+  watch(%r{^db/migrate/(\d+).+\.rb})
+  watch('db/seeds.rb')
+end
