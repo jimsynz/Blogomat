@@ -99,8 +99,8 @@ GEM
       ember-source (>= 1.0.0.rc2.2)
       execjs (>= 1.2)
       railties (>= 3.1)
-    ember-source (1.0.0.rc6.2)
-      handlebars-source (= 1.0.12)
+    ember-source (1.0.0.rc6.3)
+      handlebars-source (= 1.0.0.rc4)
     epf-rails (1.0.0)
       epf-source
       rails
@@ -167,7 +167,7 @@ GEM
       haml
       sprockets
       tilt
-    handlebars-source (1.0.12)
+    handlebars-source (1.0.0.rc4)
     hike (1.2.3)
     http_parser.rb (0.5.3)
     i18n (0.6.4)
