@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module Baseline
+module Blogomat
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -21,5 +21,8 @@ module Baseline
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W[ #{config.root}/lib ]
+
+    # We're an API-only app, so let's delete the session store.
+    config.middleware.delete ActionDispatch::Session::CookieStore
   end
 end

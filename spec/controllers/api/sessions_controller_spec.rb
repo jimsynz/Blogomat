@@ -3,87 +3,79 @@ require 'spec_helper'
 describe Api::SessionsController do
   subject { query; response }
 
-  shared_examples_for :not_authorized do
-    subject { query; response }
-    its(:status) { should eq(401) }
-
-    describe 'JSON' do
-      subject { query; JSON.parse(response.body) }
-
-      its(['error']) { should eq('not authorized')}
-    end
-  end
-
-  shared_examples_for :serialized_user do
-    describe 'session' do
-      subject { query; session }
-
-      it { should have_key :current_user_id }
-      its([:current_user_id]) { should eq user.id }
-    end
-
-    describe 'JSON' do
-      subject { query; JSON.parse(response.body) }
-
-      it { should have_key 'user' }
-      its(['user']) { should have_key 'name' }
-      its(['user']) { should have_key 'username' }
-      its(['user']) { should have_key 'email' }
-    end
-  end
-
   describe '#create' do
-    let(:query) { post :create, params.merge(format: :json) }
+    let(:query) { post :create, query_params.merge(format: :json) }
 
     context "When no parameters are passed" do
-      let(:params) { {} }
-      it_behaves_like :not_authorized
+      let(:query_params) { {} }
+      its(:status) { should eq(201) }
     end
 
-    context "When a username and password are supplied" do
-      let(:username) { 'fakeUser123' }
-      let(:password) { 'fakePassword123' }
-      let(:params) { { username: username, password: password } }
+    context "When an incorrect username and password is supplied" do
+      let(:query_params) { { username: 'testuser', password: 'testPassword' } }
+      its(:status) { should eq(401) }
+    end
 
-      context "And the user is not found" do
-        it_behaves_like :not_authorized
+    context "When an incorrect username and api_token is supplied" do
+      let(:query_params) { { username: 'testuser', api_token: 'testPassword' } }
+      its(:status) { should eq(401) }
+    end
+
+    context "When a correct username and password is supplied" do
+      let(:password) { MicroToken.generate }
+      let(:user)     { Fabricate(:user, password: password) }
+      let(:username) { user.username }
+      let(:query_params) { { username: username, password: password } }
+
+      its(:status) { should eq(201) }
+    end
+
+    context "When a correct username and api_token is supplied" do
+      let(:user)       { Fabricate(:user) }
+      let(:username)   { user.username }
+      let(:api_token)  { OpenSSL::Digest::SHA256.new("#{user.username}:#{user.api_secret}") }
+      let(:query_params) { { username: username, api_token: api_token } }
+
+      its(:status) { should eq(201) }
+
+    end
+  end
+
+  describe "#index" do
+    subject { get :index, {format: :json} }
+
+    context "When we don't send a current api token" do
+      its(:status) { should eq 401 }
+    end
+
+    context "When we do send a current api token" do
+      before { request_with_api_token }
+
+      its(:status) { should eq 200 }
+    end
+
+    context "When we send an expired api token" do
+      before do
+        api_token.last_seen = 30.minutes.ago
+        request_with_api_token
       end
 
-      context "And the username and password matches a user" do
-        let(:user) { Fabricate(:user, username: username, password: password) }
-        before { user }
-
-        it { should be_success }
-        it_behaves_like :serialized_user
-      end
+      its(:status) { should eq 401 }
     end
   end
 
-  describe '#index' do
-    let(:query) { get :index, format: :json, use_route: :api_sessions }
+  describe "#destroy" do
+    subject { delete :destroy, {format: :json} }
 
-    context "When there is a signed in user" do
-      let(:user) { Fabricate(:user) }
-      before { session[:current_user_id] = user.id }
-
-      it { should be_success }
-      it_behaves_like :serialized_user
+    context "When we don't send a current api token" do
+      its(:status) { should eq 401 }
     end
 
-    context "When there is no signed in user" do
-      it_behaves_like :not_authorized
+    context "When we do send a current api token" do
+      before { request_with_api_token }
+
+      its(:status) { should eq 204 }
     end
   end
 
-  describe '#destroy' do
-    let(:query) { delete :destroy, format: :json }
-
-    it { should be_success }
-
-    describe 'session' do
-      subject { query; session }
-
-      it { should_not have_key(:current_user_id) }
-    end
-  end
 end

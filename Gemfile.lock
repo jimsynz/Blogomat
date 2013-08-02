@@ -91,6 +91,8 @@ GEM
     dotenv (0.7.0)
     dotenv-rails (0.7.0)
       dotenv (= 0.7.0)
+    em-synchrony (1.0.3)
+      eventmachine (>= 1.0.0.beta.1)
     ember-data-source (0.13)
       ember-source
     ember-rails (0.12.0)
@@ -174,6 +176,7 @@ GEM
       tilt
     handlebars-source (1.0.12)
     hike (1.2.3)
+    hiredis (0.4.5)
     http_parser.rb (0.5.3)
     i18n (0.6.4)
     jquery-rails (3.0.4)
@@ -327,6 +330,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   dotenv-rails
+  em-synchrony
   ember-rails
   epf-rails
   fabrication
@@ -341,6 +345,7 @@ DEPENDENCIES
   guard-sidekiq
   haml-rails
   hamlbars
+  hiredis
   jasminerice!
   jquery-rails
   mail_safe
@@ -354,6 +359,7 @@ DEPENDENCIES
   rails (= 4.0.0)
   rails_12factor
   rb-fsevent (~> 0.9.1)
+  redis
   rspec-rails
   sass-rails (~> 4.0.0)
   sidekiq

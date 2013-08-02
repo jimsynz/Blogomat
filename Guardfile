@@ -26,10 +26,10 @@ guard 'rails' do
   watch(%r{^(config)/.*})
 end
 
-guard 'sidekiq', environment: 'development' do
-  watch(%r{^app/(.+)\.rb$})
-  watch(%r{^(config|lib)/.*})
-end
+# guard 'sidekiq', environment: 'development' do
+#   watch(%r{^app/(.+)\.rb$})
+#   watch(%r{^(config|lib)/.*})
+# end
 
 guard 'migrate' do
   watch(%r{^db/migrate/(\d+).+\.rb})

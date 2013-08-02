@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Baseline do
+describe Blogomat do
   it { should be }
 end

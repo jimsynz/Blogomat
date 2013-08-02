@@ -3,7 +3,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Baseline::Application.load_tasks
+Blogomat::Application.load_tasks
 
 namespace :spec do
   task :javascript do
@@ -29,12 +29,12 @@ namespace :baseline do
   task rename: :environment do
     app_name = ENV['APP_NAME'].camelize
     raise "Please set APP_NAME='YourAppName' on the command line" unless app_name
-    puts "Renaming Baseline => #{app_name}"
+    puts "Renaming Blogomat => #{app_name}"
     dirs = Dir['{config,spec}/**/*.rb'] + %w[Rakefile]
     dirs.each do |path|
       File.open(path, 'r+') do |file|
         baseline_source = file.read
-        new_source      = baseline_source.gsub(/Baseline/, app_name)
+        new_source      = baseline_source.gsub(/Blogomat/, app_name)
         if new_source != baseline_source
           puts "modified #{path}"
           file.rewind

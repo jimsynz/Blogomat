@@ -12,6 +12,9 @@ gem 'stateflow'
 gem 'active_model_serializers'
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
 gem 'micro_token'
+gem 'redis'
+gem 'hiredis'
+gem 'em-synchrony'
 
 # Assets
 gem 'sass-rails', '~> 4.0.0'

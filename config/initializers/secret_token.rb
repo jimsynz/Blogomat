@@ -1,1 +1,1 @@
-Baseline::Application.config.secret_key_base = ENV['SECRET_TOKEN']
+Blogomat::Application.config.secret_key_base = ENV['SECRET_TOKEN']

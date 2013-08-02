@@ -1,43 +1,38 @@
 class Api::SessionsController < ApiController
+  skip_before_filter :api_token_authenticate!, only: [:create]
 
   def create
-    user = User.find_by_username(params[:username])
+    token = ApiToken.new(params[:api_token])
 
-    return _not_authorized unless _user_is_authentic? user
+    if params[:username]
+      @user = User.find_by_username(params[:username])
+      token.user = @user if _provided_valid_password? || _provided_valid_api_token?
+    end
 
-    _sign_in user
-    respond_with user
+    respond_with token
   end
 
   def index
-    return _not_authorized unless signed_in?
-    respond_with current_user
+    respond_with current_api_token
   end
 
   def destroy
-    _sign_out
-    render json: { ok: :ok }
+    current_api_token.delete!
+
+    render nothing: true, status: 204
   end
 
   private
 
-  def user_url(*args)
-    api_users_url(*args)
+  def _provided_valid_password?
+    params[:password] && UserAuthenticationService.authenticate_with_password!(@user, params[:password])
   end
 
-  def _not_authorized
-    render json: { error: 'not authorized' }, status: 401
+  def _provided_valid_api_token?
+    params[:api_token] && UserAuthenticationService.authenticate_with_api_key!(@user, params[:api_token])
   end
 
-  def _user_is_authentic? user
-    user && UserAuthenticationService.authenticate(user, params[:password])
-  end
-
-  def _sign_in user
-    session[:current_user_id] = user.id
-  end
-
-  def _sign_out
-    session.delete(:current_user_id)
+  def api_token_url(token)
+    api_sessions_path(token)
   end
 end
