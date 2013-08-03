@@ -15,6 +15,7 @@ describe User do
     before { user.password = new_password }
     subject { user }
 
-    its(:password) { should eq('kask')}
+    its(:password)       { should match(/^\$2a\$/) }
+    its('password.size') { should eq 60 }
   end
 end
