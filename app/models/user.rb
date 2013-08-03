@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include JsonSerializingModel
 
+  has_many :posts
+
   validates_presence_of :password, on: :create
   after_initialize :_set_defaults
 

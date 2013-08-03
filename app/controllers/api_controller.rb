@@ -6,6 +6,14 @@ class ApiController < ApplicationController
 
   private
 
+  def signed_in?
+    !!current_api_token.user
+  end
+
+  def current_user
+    current_api_token.user
+  end
+
   def api_token_authenticate!
     return _not_authorized unless _authorization_header && current_api_token.valid?
   end
