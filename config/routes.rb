@@ -1,8 +1,8 @@
 Blogomat::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    resources :sessions, only: [:create, :index, :destroy]
-    resources :users
-    resources :posts
+    resource  :sessions, only: [:create, :show, :destroy]
+    resources :users,    only: [:create, :show, :index, :update, :destroy]
+    resources :posts,    only: [:create, :show, :index, :update, :destroy]
 
     root to: 'api#index'
   end

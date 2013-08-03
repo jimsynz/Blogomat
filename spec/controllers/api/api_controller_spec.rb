@@ -3,14 +3,16 @@ require 'spec_helper'
 describe Api::ApiController do
   describe '#index' do
     let(:query) { get :index, format: :json }
+    let(:json) { JSON.parse(response.body) }
     subject { query; response }
 
-    it { should be_success }
+    its(:status) { should eq 200 }
 
     describe 'JSON' do
-      subject { query; JSON.parse(response.body) }
+      subject { query; json }
 
       it { should have_key('sessions_url') }
+      it { should have_key('posts_url') }
     end
   end
 end

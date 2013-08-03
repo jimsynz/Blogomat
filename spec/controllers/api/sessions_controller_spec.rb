@@ -51,8 +51,8 @@ describe Api::SessionsController do
     end
   end
 
-  describe "#index" do
-    subject { get :index, {format: :json} }
+  describe "#show" do
+    subject { get :show, {format: :json} }
 
     context "When we don't send a current api token" do
       its(:status) { should eq 401 }

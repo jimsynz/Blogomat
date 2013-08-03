@@ -12,7 +12,7 @@ class Api::SessionsController < ApiController
     respond_with token
   end
 
-  def index
+  def show
     respond_with current_api_token
   end
 

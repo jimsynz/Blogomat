@@ -27,6 +27,14 @@ class ApiController < ApplicationController
   end
 
   def _not_authorized message = "Not Authorized"
-    render json: { error: message }, status: 401
+    _error message, 401
+  end
+
+  def _not_found message = "Not Found"
+    _error message, 404
+  end
+
+  def _error message, status
+    render json: { error: message }, status: status
   end
 end
