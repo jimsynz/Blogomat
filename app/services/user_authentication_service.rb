@@ -8,7 +8,7 @@ module UserAuthenticationService
   end
 
   def authenticate_with_password!(user, password)
-    authenticate_with_password(user,password) or raise NotAuthorized
+    authenticate_with_password(user, password) or raise NotAuthorized
   end
 
   # FIXME
