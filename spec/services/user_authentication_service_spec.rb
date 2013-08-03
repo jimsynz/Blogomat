@@ -29,8 +29,9 @@ describe UserAuthenticationService do
 
   describe '.authenticate_with_api_key' do
     let(:api_secret) { 's3kr1t' }
+    let(:api_token)  { 'public api token' }
     let(:user)    { Fabricate(:user, api_secret: api_secret) }
-    subject { UserAuthenticationService.authenticate_with_api_key(user, key_try) }
+    subject { UserAuthenticationService.authenticate_with_api_key(user, key_try, api_token) }
 
     context "When the api key is incorrect" do
       let(:key_try) { 'wrongKey' }
@@ -40,7 +41,7 @@ describe UserAuthenticationService do
 
     context "When the api key is correct" do
       let(:user)    { Fabricate(:user, username: 'known_value', api_secret: api_secret) }
-      let(:key_try) { '54d3b4a131c01ca20c0c60276c8db65cc0d3bd542b3fd1f4132d28b4d5ef7d09' }
+      let(:key_try) { '81dd31bb32c4010a20fd435d4746384a00784c6343c9b37a727104f15d67d8b9' }
 
       it { should be_true }
     end
@@ -68,7 +69,7 @@ describe UserAuthenticationService do
 
     context "When authentication fails" do
       it "raises NotAuthorized" do
-        expect { UserAuthenticationService.authenticate_with_api_key!(user, 'test') }.to raise_error(UserAuthenticationService::NotAuthorized)
+        expect { UserAuthenticationService.authenticate_with_api_key!(user, 'test', 'test') }.to raise_error(UserAuthenticationService::NotAuthorized)
       end
     end
   end

@@ -16,8 +16,8 @@ describe Api::SessionsController do
       its(:status) { should eq(401) }
     end
 
-    context "When an incorrect username and api_token is supplied" do
-      let(:query_params) { { username: 'testuser', api_token: 'testPassword' } }
+    context "When an incorrect username and api key is supplied" do
+      let(:query_params) { { username: 'testuser', api_key: 'testPassword' } }
       its(:status) { should eq(401) }
     end
 
@@ -30,14 +30,24 @@ describe Api::SessionsController do
       its(:status) { should eq(201) }
     end
 
-    context "When a correct username and api_token is supplied" do
+    context "When a correct username and api key is supplied" do
       let(:user)       { Fabricate(:user) }
       let(:username)   { user.username }
-      let(:api_token)  { OpenSSL::Digest::SHA256.new("#{user.username}:#{user.api_secret}") }
-      let(:query_params) { { username: username, api_token: api_token } }
+      let(:api_key)    { compute_api_key(username, user.api_secret, current_api_token) }
+      let(:query_params) { { username: username, api_key: api_key } }
 
-      its(:status) { should eq(201) }
+      context "With an existing api_token" do
+        before { request_with_api_token }
+        let(:current_api_token) { api_token.token }
 
+        its(:status) { should eq(201) }
+      end
+
+      context "Otherwise" do
+        let(:current_api_token) { nil }
+
+        its(:status) { should eq(401) }
+      end
     end
   end
 

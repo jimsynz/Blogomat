@@ -15,4 +15,8 @@ module ApiTokenSupport
   def request_with_api_token
     request.env['HTTP_AUTHORIZATION'] = api_token.token
   end
+
+  def compute_api_key(username, api_secret, api_token)
+    OpenSSL::Digest::SHA256.new("#{username}:#{api_secret}:#{api_token}")
+  end
 end

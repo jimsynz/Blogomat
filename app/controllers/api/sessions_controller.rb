@@ -2,7 +2,7 @@ class Api::SessionsController < ApiController
   skip_before_filter :api_token_authenticate!, only: [:create]
 
   def create
-    token = ApiToken.new(params[:api_token])
+    token = current_api_token
 
     if params[:username]
       @user = User.find_by_username(params[:username])
@@ -29,7 +29,7 @@ class Api::SessionsController < ApiController
   end
 
   def _provided_valid_api_token?
-    params[:api_token] && UserAuthenticationService.authenticate_with_api_key!(@user, params[:api_token])
+    params[:api_key] && UserAuthenticationService.authenticate_with_api_key!(@user, params[:api_key], current_api_token.token)
   end
 
   def api_token_url(token)
