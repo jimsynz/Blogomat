@@ -89,7 +89,7 @@ class ApiToken
 
   def _redis_connection
     opts = {}
-    opts[:driver] = :synchrony if EM.reactor_running?
+    opts[:driver] = :hiredis
     Redis.new opts
   end
 end
