@@ -8,4 +8,6 @@
 #= require_tree ./routes
 #= require ./router
 
-this.App = Ember.Application.create()
+this.App = Ember.Application.create
+  ready: ->
+    App.set('sessionToken', App.ApiToken.acquire())
