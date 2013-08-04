@@ -13,6 +13,7 @@ describe Api::ApiController do
 
       it { should have_key('sessions_url') }
       it { should have_key('posts_url') }
+      it { should have_key('users_url') }
     end
   end
 end

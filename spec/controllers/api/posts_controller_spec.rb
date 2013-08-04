@@ -32,7 +32,7 @@ describe Api::PostsController do
   describe '#index' do
     before do
       request_with_api_token
-      10.times.map { |i| Fabricate(:post, published_at: i.days.ago) }
+      10.times { |i| Fabricate(:post, published_at: i.days.ago) }
     end
     let(:page_number) { 0 }
     let(:query)       { get :index, format: :json, page_number: page_number }
