@@ -44,3 +44,28 @@ namespace :baseline do
     end
   end
 end
+
+namespace :blogomat do
+  def _prompt(query, echo=true)
+    print query
+    if echo
+      $stdin.gets
+    else
+      $stdin.noecho(&:gets)
+      puts
+    end
+  end
+
+  task create_user: :environment do
+    require 'io/console'
+
+    puts "Creating a new user..."
+    username = _prompt "Username: "
+    name     = _prompt "Full name: "
+    email    = _prompt "Email address: "
+    password = _prompt "Password: ", false
+
+    user = User.create(username: username, name: name, email: email, password: password)
+    puts "Created user #{user.id}"
+  end
+end
