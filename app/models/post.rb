@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
   end
 
   def self.paginate(page_number=0, per_page=20)
+    page_number = 0  unless page_number
+    per_page    = 20 unless per_page
     offset(page_number * per_page).limit(per_page)
   end
 end

@@ -63,5 +63,11 @@ describe Post do
 
       its(:size) { should eq 10 }
     end
+
+    context "When nil is passed in by accident" do
+      let(:page_number) { nil }
+
+      its(:size) { should eq 20 }
+    end
   end
 end
