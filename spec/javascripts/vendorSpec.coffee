@@ -8,7 +8,7 @@ describe 'Handlebars.js', ->
 
 describe 'Ember.js', ->
   it 'is the expected version', ->
-    expect(Ember.VERSION).toEqual('1.0.0-rc.6')
+    expect(Ember.VERSION).toEqual('1.0.0-rc.6.1')
 
 describe 'EPF', ->
   it 'is present', ->
