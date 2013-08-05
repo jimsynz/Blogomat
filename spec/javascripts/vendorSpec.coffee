@@ -13,3 +13,7 @@ describe 'Ember.js', ->
 describe 'EPF', ->
   it 'is present', ->
     expect(Ep).toBeDefined()
+
+describe 'Foundation', ->
+  it 'is present', ->
+    expect($(document).foundation).toBeDefined()
