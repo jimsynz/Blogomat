@@ -1,0 +1,2 @@
+=hb 'each post in controller' do
+  =hb 'render postSummary post'

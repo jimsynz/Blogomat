@@ -1,0 +1,12 @@
+.row
+  .small-12.columns
+    %h1.subheader.subject= hb 'subject'
+.row
+  .small-12.columns
+    %h6.subheader
+      %i.icon-calendar
+      = hb 'calendar publishedAt'
+.row
+  .small-12.columns
+    %article
+      = hb 'markdown body'
