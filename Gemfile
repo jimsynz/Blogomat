@@ -26,6 +26,8 @@ gem 'epf-rails'
 gem 'asset_sync', github: 'jamesotron/asset_sync'
 gem 'hamlbars'
 gem 'zurb-foundation'
+gem 'font-awesome-sass-rails'
+gem 'momentjs-rails'
 
 # Monitoring
 gem 'newrelic_rpm', '~> 3.6.0'
