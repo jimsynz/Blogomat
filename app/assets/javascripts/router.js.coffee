@@ -1,3 +1,2 @@
-App.Router.map (match)->
-  # match('/').to('index')
-
+App.Router.map ->
+  @route 'about'

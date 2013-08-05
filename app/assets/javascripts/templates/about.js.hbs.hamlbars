@@ -1,0 +1,16 @@
+%h1 About Blogomat
+
+%p
+  I needed to write a simple application to demonstrate building an
+  %a{href: 'http://www.emberjs.com/'} Ember.js
+  application on top of a Rails-backed API.
+
+%p
+  Requirements for Blogomat are pretty simple.  Given an authenticated
+  user, then said user should be able to write and post blog posts in
+  Markdown.
+
+%p
+  For more information, check out
+  = succeed '.' do
+    %a{href: 'http://resistor.io/'} my blog
