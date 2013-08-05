@@ -5,5 +5,5 @@
 # spec/javascripts/*_spec.js.erb
 #
 #=require vendor
-#=require application
+#=require test
 #=require_tree ./

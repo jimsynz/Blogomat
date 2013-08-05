@@ -1,4 +1,6 @@
-#= require application
+#= require test
+
+run = Em.run
 
 describe 'App.User', ->
   it 'exists', ->
@@ -8,11 +10,12 @@ describe 'App.User', ->
     user = null
 
     beforeEach ->
-      user = App.User.create()
-      user.set('password', 'fake password')
-      expect(user.get('password')).toEqual('fake password')
-      expect(user.get('isAuthenticated')).toEqual(false)
-      user.authenticated()
+      run ->
+        user = App.User.create()
+        user.set('password', 'fake password')
+        expect(user.get('password')).toEqual('fake password')
+        expect(user.get('isAuthenticated')).toEqual(false)
+        user.authenticated()
 
     it 'removes the password property', ->
       expect(user.get('password')).toEqual(null)

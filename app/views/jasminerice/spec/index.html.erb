@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jasmine Spec Runner</title>
+    <%= stylesheet_link_tag "jasmine" %>
+    <%= stylesheet_link_tag "spec", @asset_options.clone %>
+    <%= javascript_include_tag "jasminerice" %>
+    <%= javascript_include_tag @specsuite, @asset_options.clone %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="ember-root"></div>
+
+  </body>
+</html>

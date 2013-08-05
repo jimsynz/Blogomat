@@ -1,4 +1,4 @@
-#= require application
+#= require test
 
 describe 'App.Post', ->
   it 'exists', ->
