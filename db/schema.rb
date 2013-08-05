@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 20130803214510) do
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "username"
-    t.binary   "password",   limit: 255
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_secret"
+    t.binary   "password"
   end
 
 end

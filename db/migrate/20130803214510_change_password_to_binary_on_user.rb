@@ -1,9 +1,11 @@
 class ChangePasswordToBinaryOnUser < ActiveRecord::Migration
   def up
-    change_column :users, :password, :binary
+    remove_column :users, :password, :string
+    add_column    :users, :password, :binary
   end
 
   def down
-    change_column :users, :password, :string
+    remove_column :users, :password, :binary
+    add_column    :users, :password, :string
   end
 end
