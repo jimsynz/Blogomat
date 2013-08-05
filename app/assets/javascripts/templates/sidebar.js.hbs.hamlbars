@@ -2,10 +2,10 @@
   %li
     %h1 Blogomat
 
-  =hb 'linkTo index tagName="li"' do
-    = hb 'linkTo index' do
+  =hb 'linkTo "index" tagName="li"' do
+    = hb 'linkTo "index"' do
       Blog
 
-  = hb 'linkTo about tagName="li"' do
-    = hb 'linkTo about' do
+  = hb 'linkTo "about" tagName="li"' do
+    = hb 'linkTo "about"' do
       About
