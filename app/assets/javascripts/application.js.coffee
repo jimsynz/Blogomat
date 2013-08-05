@@ -1,5 +1,6 @@
 #= require_self
-#= require ./store
+#= require ./serializer
+#= require ./adapter
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
@@ -11,3 +12,4 @@
 this.App = Ember.Application.create
   ready: ->
     App.set('sessionToken', App.ApiToken.acquire())
+    $(document).foundation()
