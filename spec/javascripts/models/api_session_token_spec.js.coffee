@@ -2,16 +2,16 @@
 
 run = Em.run
 
-describe 'App.ApiToken', ->
+describe 'App.ApiSessionToken', ->
   token = null
 
   it 'should exist', ->
-    expect(App.ApiToken).toBeDefined()
+    expect(App.ApiSessionToken).toBeDefined()
 
   describe '#decrementTtl', ->
     beforeEach ->
       run ->
-        token = App.ApiToken.create(ttl: 10)
+        token = App.ApiSessionToken.create(ttl: 10)
 
     it 'decrements the ttl', ->
       run -> token.decrementTtl()
@@ -19,7 +19,7 @@ describe 'App.ApiToken', ->
 
   describe '#isAlive', ->
     beforeEach ->
-      token = App.ApiToken.create()
+      token = App.ApiSessionToken.create()
 
     it 'is true when the TTL is greater than zero', ->
       run -> token.set('ttl', 10)
@@ -35,7 +35,7 @@ describe 'App.ApiToken', ->
   describe '#hasToken', ->
     beforeEach ->
       run ->
-        token = App.ApiToken.create()
+        token = App.ApiSessionToken.create()
 
     describe 'when the token is set', ->
       beforeEach ->
@@ -52,7 +52,7 @@ describe 'App.ApiToken', ->
   describe '#isValid', ->
     beforeEach ->
       run ->
-        token = App.ApiToken.create()
+        token = App.ApiSessionToken.create()
 
     describe 'when the ttl is alive', ->
       beforeEach ->
@@ -84,7 +84,7 @@ describe 'App.ApiToken', ->
   describe '#needsRefresh', ->
     beforeEach ->
       run ->
-        token = App.ApiToken.create()
+        token = App.ApiSessionToken.create()
 
     describe 'when the ttl is greater than 10', ->
       beforeEach ->
@@ -111,16 +111,16 @@ describe 'App.ApiToken', ->
     token = null
 
     beforeEach ->
-      spyOn App.ApiToken, 'acquire'
+      spyOn App.ApiSessionToken, 'acquire'
       run ->
-        token = App.ApiToken.create()
+        token = App.ApiSessionToken.create()
         token.refresh()
 
-    it 'calls ApiToken.acquire', ->
-      expect(App.ApiToken.acquire).toHaveBeenCalled()
+    it 'calls ApiSessionToken.acquire', ->
+      expect(App.ApiSessionToken.acquire).toHaveBeenCalled()
 
     it 'passes itself as an argument', ->
-      expect(App.ApiToken.acquire.mostRecentCall.args[0]).toEqual(token)
+      expect(App.ApiSessionToken.acquire.mostRecentCall.args[0]).toEqual(token)
 
   describe '.acquire', ->
     beforeEach ->
@@ -137,8 +137,8 @@ describe 'App.ApiToken', ->
           password: null
           authenticated: -> console.log "Authenticated"
         run ->
-          old_token = App.ApiToken.create(user: user, token: 'foo bar')
-          token     = App.ApiToken.acquire(old_token)
+          old_token = App.ApiSessionToken.create(user: user, token: 'foo bar')
+          token     = App.ApiSessionToken.acquire(old_token)
 
       it 'is sent', ->
         expect($.ajax).toHaveBeenCalled()
@@ -161,7 +161,7 @@ describe 'App.ApiToken', ->
             run ->
               user.set('username', 'test username')
               user.set('password', 'test password')
-              token     = App.ApiToken.acquire(old_token)
+              token     = App.ApiSessionToken.acquire(old_token)
 
           it 'sends the username', ->
             expect($.ajax.mostRecentCall.args[0].data.username).toEqual('test username')
@@ -179,7 +179,7 @@ describe 'App.ApiToken', ->
       describe 'on success', ->
         the_token  = 'abcdefg'
         the_ttl    = 30
-        data       = { 'api_token': { 'token': the_token, 'ttl': the_ttl } }
+        data       = { 'api_session_token': { 'token': the_token, 'ttl': the_ttl } }
 
         beforeEach ->
           run ->
@@ -197,7 +197,7 @@ describe 'App.ApiToken', ->
               user.set('username', 'test username')
               user.set('password', 'test password')
               spyOn user, 'authenticated'
-              token     = App.ApiToken.acquire(old_token)
+              token     = App.ApiSessionToken.acquire(old_token)
               $.ajax.mostRecentCall.args[0].success(data, null, null)
 
           it 'calls authenticated on the user', ->
@@ -214,5 +214,5 @@ describe 'App.ApiToken', ->
         it 'sets the error', ->
           expect(token.get('error')).toEqual('lawsOfPhysicsException: I canne give \'er more power, Jim.')
 
-    it 'returns an ApiToken', ->
-      expect(App.ApiToken.acquire().constructor).toEqual(App.ApiToken)
+    it 'returns an ApiSessionToken', ->
+      expect(App.ApiSessionToken.acquire().constructor).toEqual(App.ApiSessionToken)

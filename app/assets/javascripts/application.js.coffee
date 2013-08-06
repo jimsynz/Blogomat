@@ -11,5 +11,5 @@
 
 this.App = Ember.Application.create
   ready: ->
-    App.set('sessionToken', App.ApiToken.acquire())
+    App.set('sessionToken', App.ApiSessionToken.acquire())
     $(document).foundation()

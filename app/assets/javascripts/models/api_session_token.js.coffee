@@ -2,7 +2,7 @@
 # The reasons this isn't EPF-backed is because it only has the create
 # (POST) action, and it would be overkill to use an ORM.
 
-App.ApiToken = Em.Object.extend
+App.ApiSessionToken = Em.Object.extend
   token: null
   ttl:   0
   user:  null
@@ -36,11 +36,11 @@ App.ApiToken = Em.Object.extend
     Em.run.later(this, @decrementTtl, 1000)
 
   refresh: ->
-    App.ApiToken.acquire(@)
+    App.ApiSessionToken.acquire(@)
 
-App.ApiToken.reopenClass
+App.ApiSessionToken.reopenClass
   acquire: (token)->
-    token     ||= App.ApiToken.create()
+    token     ||= App.ApiSessionToken.create()
     credentials = {}
     username    = token.get('user.username')
     password    = token.get('user.password')
@@ -58,8 +58,8 @@ App.ApiToken.reopenClass
       type:     'POST'
 
       success:  (data,status,xhr)->
-        token.set('token', data.api_token.token)
-        token.set('ttl', data.api_token.ttl)
+        token.set('token', data.api_session_token.token)
+        token.set('ttl', data.api_session_token.ttl)
         token.get('user').authenticated() if username && password
 
       error:    (xhr,status,error)->
