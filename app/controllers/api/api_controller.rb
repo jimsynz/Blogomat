@@ -1,5 +1,5 @@
 class Api::ApiController < ApiController
-  skip_before_filter :api_token_authenticate!, only: [:index]
+  skip_before_filter :api_session_token_authenticate!, only: [:index]
 
   def index
     respond_with \

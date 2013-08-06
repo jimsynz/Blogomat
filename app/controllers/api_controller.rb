@@ -2,24 +2,24 @@ class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
   respond_to :json
   rescue_from UserAuthenticationService::NotAuthorized, with: :_not_authorized
-  before_filter :api_token_authenticate!
+  before_filter :api_session_token_authenticate!
 
   private
 
   def signed_in?
-    !!current_api_token.user
+    !!current_api_session_token.user
   end
 
   def current_user
-    current_api_token.user
+    current_api_session_token.user
   end
 
-  def api_token_authenticate!
-    return _not_authorized unless _authorization_header && current_api_token.valid?
+  def api_session_token_authenticate!
+    return _not_authorized unless _authorization_header && current_api_session_token.valid?
   end
 
-  def current_api_token
-    @current_api_token ||= ApiToken.new(_authorization_header)
+  def current_api_session_token
+    @current_api_session_token ||= ApiSessionToken.new(_authorization_header)
   end
 
   def _authorization_header
